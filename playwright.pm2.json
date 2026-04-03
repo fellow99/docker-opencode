@@ -2,7 +2,13 @@
   "apps": [
     {
       "name": "playwright",
-      "script": "npx @playwright/mcp@latest --port 8931 --host 0.0.0.0 --allowed-hosts 'localhost:8931,127.0.0.1:8931,host.docker.internal:8931' --isolated --executable-path /usr/bin/chromium --user-data-dir /user-data --no-sandbox",
+      "script": "npx @playwright/mcp@latest --host $PLAYWRIGHT_HOST --port $PLAYWRIGHT_PORT --allowed-hosts 'localhost:$PLAYWRIGHT_PORT,127.0.0.1:$PLAYWRIGHT_PORT' --executable-path $PLAYWRIGHT_EXECUTABLE_PATH --user-data-dir $PLAYWRIGHT_USER_DIR --no-sandbox",
+      "env": {
+        "PLAYWRIGHT_HOST": "0.0.0.0",
+        "PLAYWRIGHT_PORT": "8931",
+        "PLAYWRIGHT_EXECUTABLE_PATH": "/usr/bin/chromium",
+        "PLAYWRIGHT_USER_DIR": "/root/user-data"
+      },
       "exec_mode": "fork",
       "instances": 1,
       "autorestart": true

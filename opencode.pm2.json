@@ -3,6 +3,10 @@
     {
       "name": "opencode-serve",
       "script": "opencode serve --hostname $OPENCODE_HOSTNAME --port $OPENCODE_PORT",
+      "env": {
+        "OPENCODE_HOSTNAME": "0.0.0.0",
+        "OPENCODE_PORT": "4096"
+      },
       "exec_mode": "fork",
       "instances": 1,
       "autorestart": true

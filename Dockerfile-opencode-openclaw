@@ -1,7 +1,7 @@
 ARG VERSION_OPENCODE=latest
 ARG VERSION_OPENCLAW=latest
 
-FROM fellow99/playwright-opencode:$VERSION_OPENCODE
+FROM fellow99/opencode-aio:$VERSION_OPENCODE
 
 ENV HOME=/root
 
@@ -13,7 +13,7 @@ RUN npm install -g openclaw@${VERSION_OPENCLAW}  @tobilu/qmd@1.1.6
 
 RUN rm -rf /tmp/* /root/.npm /root/.cache
 
-COPY playwright-opencode-openclaw.pm2.json "${HOME}"
+COPY opencode-openclaw.pm2.json $HOME/
 
 # 暴露端口
 EXPOSE 18789 18790 4096 8931 6080
@@ -21,4 +21,4 @@ EXPOSE 18789 18790 4096 8931 6080
 # 设置工作目录为 home
 WORKDIR /root/workspace
 
-CMD ["sh", "-c", "pm2-runtime start $HOME/playwright-opencode-openclaw.pm2.json"]
+CMD ["sh", "-c", "pm2-runtime start $HOME/opencode-openclaw.pm2.json"]

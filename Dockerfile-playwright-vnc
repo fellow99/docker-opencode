@@ -95,8 +95,8 @@ RUN npm install -g \
 	playwright playwright-extra puppeteer-extra-plugin-stealth \
 	@playwright/cli @playwright/mcp @playwright/test
 
-COPY vnc.sh $HOME/vnc.sh
-RUN chmod 755 $HOME/vnc.sh
+COPY init-vnc.sh $HOME/
+RUN chmod 755 $HOME/init-vnc.sh
 
 COPY playwright-vnc.pm2.json $HOME/playwright-vnc.pm2.json
 
