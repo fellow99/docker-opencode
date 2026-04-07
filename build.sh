@@ -1,5 +1,5 @@
-VERSION_OPENCODE=1.3.15
-VERSION_OPENCLAW=2026.4.2
+VERSION_OPENCODE=1.3.17
+VERSION_OPENCLAW=2026.4.5
 
 docker builder prune -f
 docker build -t fellow99/playwright-vnc:latest -f Dockerfile-playwright-vnc .

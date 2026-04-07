@@ -8,8 +8,8 @@ ENV HOME=/root
 RUN uv tool install specify-cli --from git+https://github.com/github/spec-kit.git && \
 	ln -sf $HOME/.local/bin/specify /bin/specify
 
-# RUN npm config set registry https://registry.npmmirror.com && \
-RUN npm install -g \
+RUN npm config set registry https://registry.npmmirror.com && \
+  npm install -g \
 	bun \
 	pm2 \
 	pnpm \
@@ -22,7 +22,12 @@ RUN npm install -g \
 	chrome-devtools-mcp
 
 # 安装opencode oh-my-opencode
-RUN npm install -g opencode-ai@${VERSION_OPENCODE} @fellow99/opencode-feishu && \
+RUN npm install -g opencode-ai@${VERSION_OPENCODE} \
+		oh-my-openagent-linux-x64 \
+		oh-my-openagent \
+		opencode-pty \
+		@morphllm/opencode-morph-plugin \
+		opencode-feishu && \
 	bunx oh-my-openagent install --no-tui --claude=no --copilot=no --gemini=no
 
 RUN rm -rf /tmp/* /root/.npm /root/.cache
