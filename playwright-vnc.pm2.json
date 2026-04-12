@@ -1,6 +1,13 @@
 {
   "apps": [
     {
+      "name": "init-sshd",
+      "script": "/root/init-sshd.sh",
+      "exec_mode": "fork",
+      "instances": 1,
+      "autorestart": false
+    },
+    {
       "name": "init-vnc",
       "script": "/root/init-vnc.sh",
       "exec_mode": "fork",
