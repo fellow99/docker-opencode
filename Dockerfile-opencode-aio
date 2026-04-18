@@ -28,8 +28,11 @@ RUN npm install -g opencode-ai@${VERSION_OPENCODE} \
 		opencode-pty \
 		@morphllm/opencode-morph-plugin \
 		opencode-feishu && \
-	bunx oh-my-openagent install --no-tui --claude=no --copilot=no --gemini=no && \
-	opencode stats
+	bunx oh-my-openagent install --no-tui --claude=no --copilot=no --gemini=no
+
+# 预热opencode
+COPY opencode.json $HOME/.config/opencode/
+RUN opencode stats
 
 COPY opencode-aio.pm2.json $HOME/
 
