@@ -23,7 +23,6 @@ RUN npm config set registry https://registry.npmmirror.com && \
 
 # 安装opencode oh-my-opencode
 RUN npm install -g opencode-ai@${VERSION_OPENCODE} \
-		oh-my-openagent-linux-x64 \
 		oh-my-openagent \
 		opencode-pty \
 		@morphllm/opencode-morph-plugin \

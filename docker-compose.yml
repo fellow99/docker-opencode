@@ -22,8 +22,6 @@ services:
       - ./workspace:/root/workspace
       - ./user-data:/root/user-data
     ports:
-      - 18789:18789
-      - 18790:18790
       - 4096:4096
       - 8931:8931
       - 6080:6080
