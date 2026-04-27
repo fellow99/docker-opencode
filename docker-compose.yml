@@ -1,18 +1,12 @@
 services:
-  openclaw-aio:
-    container_name: opencode-aio
-    image: fellow99/opencode-aio:1.3.13
+  dev-opencode:
+    image: fellow99/dev-opencode:1.14.25
     restart: unless-stopped
-    cap_add:
-      - CHOWN
-      - SETUID
-      - SETGID
-      - DAC_OVERRIDE
     env_file: .env
     volumes:
       - ./opencode-aio.pm2.json:/root/opencode-aio.pm2.json
       - ./.opencode/opencode.json:/root/.config/opencode/opencode.json
-      - ./.opencode/oh-my-opencode.json:/root/.config/opencode/oh-my-opencode.json
+      - ./.opencode/oh-my-openagent.json:/root/.config/opencode/oh-my-openagent.json
       - ./.opencode/plugins/:/root/.config/opencode/plugins/
       - ./.local_share_opencode:/root/.local/share/opencode
       - ./.local_state_opencode:/root/.local/state/opencode
@@ -20,8 +14,8 @@ services:
       - ./.m2:/root/.m2
       - ./.gradle:/root/.gradle
       - ./workspace:/root/workspace
-      - ./user-data:/root/user-data
     ports:
+      - 2222:22
       - 4096:4096
       - 8931:8931
       - 6080:6080

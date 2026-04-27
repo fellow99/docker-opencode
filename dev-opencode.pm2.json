@@ -1,15 +1,22 @@
 {
   "apps": [
     {
-      "name": "init-vnc",
-      "script": "/root/init-vnc.sh",
+      "name": "init-sshd",
+      "script": "/root/init-sshd.sh",
       "exec_mode": "fork",
       "instances": 1,
       "autorestart": false
     },
     {
-      "name": "init-sdkman",
-      "script": "/root/init-sdkman.sh",
+      "name": "init-dev-in-one",
+      "script": "/root/init-dev-in-one.sh",
+      "exec_mode": "fork",
+      "instances": 1,
+      "autorestart": false
+    },
+    {
+      "name": "init-vnc",
+      "script": "/root/init-vnc.sh",
       "exec_mode": "fork",
       "instances": 1,
       "autorestart": false
@@ -22,6 +29,17 @@
         "PLAYWRIGHT_PORT": "8931",
         "PLAYWRIGHT_EXECUTABLE_PATH": "/usr/bin/chromium",
         "PLAYWRIGHT_USER_DIR": "/root/user-data"
+      },
+      "exec_mode": "fork",
+      "instances": 1,
+      "autorestart": true
+    },
+    {
+      "name": "opencode-serve",
+      "script": "opencode serve --hostname $OPENCODE_HOSTNAME --port $OPENCODE_PORT",
+      "env": {
+        "OPENCODE_HOSTNAME": "0.0.0.0",
+        "OPENCODE_PORT": "4096"
       },
       "exec_mode": "fork",
       "instances": 1,

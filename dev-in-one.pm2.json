@@ -1,0 +1,18 @@
+{
+  "apps": [
+    {
+      "name": "init-sshd",
+      "script": "/root/init-sshd.sh",
+      "exec_mode": "fork",
+      "instances": 1,
+      "autorestart": false
+    },
+    {
+      "name": "init-dev-in-one",
+      "script": "/root/init-dev-in-one.sh",
+      "exec_mode": "fork",
+      "instances": 1,
+      "autorestart": false
+    }
+  ]
+}

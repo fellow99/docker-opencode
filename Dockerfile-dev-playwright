@@ -1,0 +1,73 @@
+ARG VERSION_DEV_IN_ONE=latest
+
+FROM fellow99/dev-in-one:${VERSION_DEV_IN_ONE}
+
+ENV HOME=/root
+
+# Set display environment
+ENV DISPLAY=:99
+
+# PLAYWRIGHT environment
+ENV PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
+
+# Install dependencies for Playwright browsers and display/VNC
+RUN apt-get update && apt-get install -y \
+    # Chrome/Chromium 依赖
+    libnss3 libxss1 libasound2 libatk-bridge2.0-0 libgtk-3-0 \
+    chromium chromium-l10n chromium-driver \
+    fonts-liberation fonts-noto fonts-noto-cjk fonts-noto-color-emoji \
+    # Playwright browser dependencies
+    libnss3 \
+    libnspr4 \
+    libdbus-1-3 \
+    libatk1.0-0 \
+    libatk-bridge2.0-0 \
+    libcups2 \
+    libdrm2 \
+    libxkbcommon0 \
+    libxcomposite1 \
+    libxdamage1 \
+    libxfixes3 \
+    libxrandr2 \
+    libgbm1 \
+    libasound2 \
+    libpango-1.0-0 \
+    libcairo2 \
+    libatspi2.0-0 \
+    libxshmfence1 \
+    # Display and VNC
+    xvfb \
+    x11vnc \
+    novnc \
+    websockify \
+    fluxbox && \
+    # 清理 apt 缓存
+    apt-get purge -y --auto-remove && \
+	apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# Install Playwright MCP globally
+RUN npm config set registry https://registry.npmmirror.com && \
+    npm install -g \
+        playwright playwright-extra puppeteer-extra-plugin-stealth \
+        @playwright/cli @playwright/mcp @playwright/test \
+        chrome-devtools-mcp
+
+COPY init-vnc.sh $HOME/
+RUN chmod 755 $HOME/init-vnc.sh
+
+COPY dev-playwright.pm2.json $HOME/dev-playwright.pm2.json
+
+# 暴露端口
+EXPOSE 22 8931 6080
+
+# 设置工作目录为 home
+WORKDIR /root/workspace
+
+# Create browser data directory
+RUN mkdir -p /root/user-data
+
+# Volume for persistent browser data
+VOLUME /root/user-data
+
+CMD ["sh", "-c", "pm2-runtime start $HOME/dev-playwright.pm2.json"]

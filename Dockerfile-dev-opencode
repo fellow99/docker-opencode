@@ -1,0 +1,48 @@
+ARG VERSION_DEV_IN_ONE=latest
+ARG VERSION_OPENCODE=latest
+
+FROM fellow99/dev-playwright:${VERSION_DEV_IN_ONE}
+
+ENV HOME=/root
+
+# 安装 SpecKit
+RUN uv tool install specify-cli --from git+https://github.com/github/spec-kit.git && \
+		ln -sf $HOME/.local/bin/specify /bin/specify
+
+RUN npm config set registry https://registry.npmmirror.com && \
+		npm install -g \
+				bun \
+				pm2 \
+				pnpm \
+				node-gyp \
+				@ai-sdk/anthropic \
+				@larksuiteoapi/node-sdk \
+				@steipete/bird \
+				@vue/language-server @vue/language-service @vue/typescript-plugin vue-language-server typescript-language-server typescript \
+				mcporter skills clawhub \
+				chrome-devtools-mcp
+
+# 安装opencode oh-my-opencode
+RUN npm config set registry https://registry.npmmirror.com && \
+		npm install -g opencode-ai@${VERSION_OPENCODE} \
+				oh-my-openagent-linux-x64 \
+				oh-my-openagent \
+				opencode-pty \
+				@morphllm/opencode-morph-plugin \
+				opencode-feishu && \
+		bunx oh-my-openagent install --no-tui --claude=no --copilot=no --gemini=no
+
+# 预热opencode
+COPY opencode.json $HOME/.config/opencode/
+RUN source $NVM_DIR/nvm.sh && \
+	opencode stats
+
+COPY dev-opencode.pm2.json $HOME/
+
+# 暴露端口
+EXPOSE 4096 8931 6080
+
+# 设置工作目录为 home
+WORKDIR /root/workspace
+
+CMD ["sh", "-c", "pm2-runtime start $HOME/dev-opencode.pm2.json"]
