@@ -1,5 +1,5 @@
-VERSION_DEV_IN_ONE=20260426
-VERSION_OPENCODE=1.14.25
+VERSION_DEV_IN_ONE=20260430
+VERSION_OPENCODE=1.14.33
 
 docker builder prune -f
 docker build -t fellow99/dev-in-one:$VERSION_DEV_IN_ONE -f Dockerfile-dev-in-one .
