@@ -56,16 +56,6 @@ RUN sed -i 's/^# *en_US.UTF-8 UTF-8$/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
 RUN curl -LsSf https://astral.sh/uv/install.sh | sh
 
 # NodeJS相关
-ENV NVM_DIR=/root/.nvm
-ENV PATH=${NVM_DIR}/versions/node/v*/bin:${PATH}
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash && \
-    source $NVM_DIR/nvm.sh && \
-    nvm install 22 && \
-    nvm install 24 && \
-    nvm use 24 && \
-    nvm alias default 24 && \
-    node -v && npm -v
-
 RUN npm config set registry https://registry.npmmirror.com && \
     npm install -g \
         bun \
@@ -74,8 +64,10 @@ RUN npm config set registry https://registry.npmmirror.com && \
         pnpm \
         node-gyp \
         n \
-        typescript \
-        vite
+        typescript && \
+    n download 22 && \
+    n download 16 && \
+    n prune
 
 ENV NODE_PATH=/usr/local/lib/node_modules \
     NODE_ENV=production \
@@ -85,7 +77,10 @@ ENV NODE_PATH=/usr/local/lib/node_modules \
 RUN curl -s https://get.sdkman.io | bash && \
     chmod a+x "$HOME/.sdkman/bin/sdkman-init.sh" && \
     source "$HOME/.sdkman/bin/sdkman-init.sh" && \
-    sdk install java 17-open && \
+    sdk install java 8.0.482-tem && \
+    sdk install java 17.0.19-tem && \
+    sdk install java 21.0.11-tem && \
+    sdk install java 25.0.3-tem && \
     sdk install java 26-tem && \
     sdk install maven && \
     sdk install gradle && \

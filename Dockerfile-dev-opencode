@@ -34,8 +34,7 @@ RUN npm config set registry https://registry.npmmirror.com && \
 
 # 预热opencode
 COPY opencode.json $HOME/.config/opencode/
-RUN source $NVM_DIR/nvm.sh && \
-	opencode stats
+RUN opencode stats
 
 COPY dev-opencode.pm2.json $HOME/
 
