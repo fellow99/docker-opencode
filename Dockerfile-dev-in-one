@@ -65,6 +65,7 @@ RUN npm config set registry https://registry.npmmirror.com && \
         node-gyp \
         n \
         typescript && \
+    n download 26 && \
     n download 22 && \
     n download 16 && \
     n prune

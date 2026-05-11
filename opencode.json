@@ -3,7 +3,6 @@
   "plugin": [
     "oh-my-openagent",
     "opencode-pty",
-    "@morphllm/opencode-morph-plugin",
-    "opencode-feishu"
+    "@tarquinen/opencode-dcp"
   ]
 }

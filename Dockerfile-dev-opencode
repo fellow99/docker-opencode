@@ -15,11 +15,8 @@ RUN npm config set registry https://registry.npmmirror.com && \
 				pm2 \
 				pnpm \
 				node-gyp \
-				@ai-sdk/anthropic \
-				@larksuiteoapi/node-sdk \
-				@steipete/bird \
 				@vue/language-server @vue/language-service @vue/typescript-plugin vue-language-server typescript-language-server typescript \
-				mcporter skills clawhub \
+				skills \
 				chrome-devtools-mcp
 
 # 安装opencode oh-my-opencode
@@ -28,9 +25,9 @@ RUN npm config set registry https://registry.npmmirror.com && \
 				oh-my-openagent-linux-x64 \
 				oh-my-openagent \
 				opencode-pty \
-				@morphllm/opencode-morph-plugin \
-				opencode-feishu && \
-		bunx oh-my-openagent install --no-tui --claude=no --copilot=no --gemini=no
+				@tarquinen/opencode-dcp && \
+		bunx oh-my-openagent install --no-tui --claude=no --copilot=no --gemini=no && \
+		opencode plugin --global @tarquinen/opencode-dcp
 
 # 预热opencode
 COPY opencode.json $HOME/.config/opencode/
