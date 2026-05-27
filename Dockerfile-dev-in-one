@@ -30,6 +30,7 @@ RUN apt update && apt install -y \
         postgresql-client \
         mariadb-client \
         redis-tools \
+        sqlite3 \
         # 图片视频处理工具
         ffmpeg \
         imagemagick \

@@ -29,6 +29,14 @@ RUN npm config set registry https://registry.npmmirror.com && \
 		bunx oh-my-openagent install --no-tui --claude=no --copilot=no --gemini=no && \
 		opencode plugin --global @tarquinen/opencode-dcp
 
+# 安装codegraph
+RUN npm config delete registry && \
+		npm install -g \
+				@colbymchenry/codegraph-linux-x64 \
+				@colbymchenry/codegraph && \
+		codegraph install --target= --location=global --yes && \
+		npm config set registry https://registry.npmmirror.com
+
 # 预热opencode
 COPY opencode.json $HOME/.config/opencode/
 RUN opencode stats
