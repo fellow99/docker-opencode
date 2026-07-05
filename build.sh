@@ -14,9 +14,3 @@ docker save fellow99/dev-opencode:$VERSION_OPENCODE > fellow99_dev-opencode_$VER
 gzip fellow99_dev-in-one_$VERSION_DEV_IN_ONE.tar
 gzip fellow99_dev-opencode_$VERSION_OPENCODE.tar
 
-
-
-
-docker build -t fellow99/opencode:$VERSION_OPENCODE -f Dockerfile-opencode --build-arg VERSION_OPENCODE=$VERSION_OPENCODE .
-docker build -t fellow99/opencode-design:$VERSION_OPENCODE -f Dockerfile-opencode-design --build-arg VERSION_OPENCODE=$VERSION_OPENCODE .
-docker build -t fellow99/opencode-webapps:$VERSION_OPENCODE -f Dockerfile-opencode-webapps --build-arg VERSION_OPENCODE=$VERSION_OPENCODE .
