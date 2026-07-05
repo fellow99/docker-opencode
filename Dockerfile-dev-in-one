@@ -38,7 +38,7 @@ RUN apt update && apt install -y \
         openssh-server \
         openssh-client \
         # 其他常用工具
-        git \
+        git git-lfs \
         nano \
         procps ca-certificates locales \
         jq socat tini \
@@ -59,14 +59,17 @@ RUN curl -LsSf https://astral.sh/uv/install.sh | sh
 # NodeJS相关
 RUN npm config set registry https://registry.npmmirror.com && \
     npm install -g \
-        bun \
-        ts-node \
         pm2 \
         pnpm \
         node-gyp \
         n \
-        typescript && \
-    n download 26 && \
+        bun \
+        ts-node \
+        typescript \
+        playwright playwright-extra puppeteer-extra-plugin-stealth \
+        @playwright/cli @playwright/mcp @playwright/test \
+        chrome-devtools-mcp
+RUN n download 26 && \
     n download 22 && \
     n download 16 && \
     n prune

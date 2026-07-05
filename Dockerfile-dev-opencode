@@ -1,7 +1,7 @@
 ARG VERSION_DEV_IN_ONE=latest
 ARG VERSION_OPENCODE=latest
 
-FROM fellow99/dev-playwright:${VERSION_DEV_IN_ONE}
+FROM fellow99/dev-in-one:${VERSION_DEV_IN_ONE}
 
 ENV HOME=/root
 
@@ -24,9 +24,10 @@ RUN npm config set registry https://registry.npmmirror.com && \
 		npm install -g opencode-ai@${VERSION_OPENCODE} \
 				oh-my-openagent-linux-x64 \
 				oh-my-openagent \
-				opencode-pty \
-				@tarquinen/opencode-dcp && \
+				oh-my-opencode-slim \
+				opencode-pty && \
 		bunx oh-my-openagent install --no-tui --claude=no --copilot=no --gemini=no && \
+		bunx oh-my-opencode-slim@latest install --no-tui --claude=no --copilot=no --gemini=no && \
 		opencode plugin --global @tarquinen/opencode-dcp
 
 # 安装codegraph
